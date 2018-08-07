@@ -1,7 +1,5 @@
 package com.cooksys.ftd.assignments.objects;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class Rational implements IRational {
     /**
      * Constructor for rational values of the type:
@@ -14,8 +12,16 @@ public class Rational implements IRational {
      * @param denominator the denominator of the rational value
      * @throws IllegalArgumentException if the given denominator is 0
      */
-    public Rational(int numerator, int denominator) throws IllegalArgumentException {
-        throw new NotImplementedException();
+	int numerator = 0;
+	int denominator = 0;
+
+    public Rational(int numerator, int denominator) throws IllegalArgumentException { 	
+        if(denominator == 0) {
+        	throw new IllegalArgumentException();
+        } else {
+        	this.numerator = numerator;
+        	this.denominator = denominator;
+        }
     }
 
     /**
@@ -23,7 +29,7 @@ public class Rational implements IRational {
      */
     @Override
     public int getNumerator() {
-        throw new NotImplementedException();
+        return numerator;
     }
 
     /**
@@ -31,7 +37,7 @@ public class Rational implements IRational {
      */
     @Override
     public int getDenominator() {
-        throw new NotImplementedException();
+        return denominator;
     }
 
     /**
@@ -47,7 +53,14 @@ public class Rational implements IRational {
      */
     @Override
     public Rational construct(int numerator, int denominator) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	if(denominator == 0) {
+    		throw new IllegalArgumentException();
+    	} else {
+    		Rational rat = new Rational(numerator, denominator);
+    		
+    		return rat;
+    	}
+        
     }
 
     /**
@@ -58,7 +71,20 @@ public class Rational implements IRational {
      */
     @Override
     public boolean equals(Object obj) {
-        throw new NotImplementedException();
+        if(obj == null) 
+        	return false;
+        
+        if(obj.getClass() == this.getClass()) {
+        	Rational rat = (Rational) obj;
+        	
+        	if(rat.numerator == this.numerator && rat.denominator == this.denominator) {
+        		return true;
+        	} else {
+        		return false;
+        	}
+    	} else {
+    		return false;
+    	}
     }
 
     /**
@@ -70,6 +96,14 @@ public class Rational implements IRational {
      */
     @Override
     public String toString() {
-        throw new NotImplementedException();
+    	int num = numerator;
+    	int dem = denominator;
+    	
+    	if(dem < 0) {
+    		num *= -1;
+    		dem *= -1;
+    	}
+    	
+    	return Integer.toString(num) + "/" + Integer.toString(dem);
     }
 }

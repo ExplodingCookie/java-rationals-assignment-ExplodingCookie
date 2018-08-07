@@ -1,7 +1,5 @@
 package com.cooksys.ftd.assignments.objects;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 interface IRational {
 
 	/**
@@ -54,7 +52,12 @@ interface IRational {
 	 *             if the numerator of this rational value is 0
 	 */
 	default IRational invert() throws IllegalStateException {
-		throw new NotImplementedException();
+		if(this.getNumerator() == 0) {
+			throw new IllegalStateException();
+		} else {
+			IRational newRat = construct(this.getDenominator(), this.getNumerator());
+			return newRat;
+		}
 	}
 
 	/**
@@ -69,7 +72,16 @@ interface IRational {
 	 *             if that is null
 	 */
 	default IRational add(IRational that) throws IllegalArgumentException {
-		throw new NotImplementedException();
+		if(that == null) {
+			throw new IllegalArgumentException();
+		} else {
+			int newNumerator = (this.getNumerator() * that.getDenominator()) + (that.getNumerator() * this.getDenominator());
+			int newDenominator = (this.getDenominator() * that.getDenominator());
+			
+			IRational addedRat = construct(newNumerator, newDenominator);
+			
+			return addedRat;
+		}
 	}
 
 	/**
@@ -84,7 +96,16 @@ interface IRational {
 	 *             if that is null
 	 */
 	default IRational sub(IRational that) throws IllegalArgumentException {
-		throw new NotImplementedException();
+		if(that == null) {
+			throw new IllegalArgumentException();
+		} else {
+			int newNumerator = (this.getNumerator() * that.getDenominator()) - (that.getNumerator() * this.getDenominator());
+			int newDenominator = (this.getDenominator() * that.getDenominator());
+			
+			IRational subbedRat = construct(newNumerator, newDenominator);
+			
+			return subbedRat;
+		}
 	}
 
 	/**
@@ -99,7 +120,16 @@ interface IRational {
 	 *             if that is null
 	 */
 	default IRational mul(IRational that) throws IllegalArgumentException {
-		throw new NotImplementedException();
+		if(that == null) {
+			throw new IllegalArgumentException();
+		} else {
+			int newNumerator = (this.getNumerator() * that.getNumerator());
+			int newDenominator = (this.getDenominator() * that.getDenominator());
+			
+			IRational multRat = construct(newNumerator, newDenominator);
+			
+			return multRat;
+		}
 	}
 
 	/**
@@ -114,6 +144,15 @@ interface IRational {
 	 *             if that is null or if the numerator of that is 0
 	 */
 	default IRational div(IRational that) throws IllegalArgumentException {
-		throw new NotImplementedException();
+		if(that == null) {
+			throw new IllegalArgumentException();
+		} else {
+			int newNumerator = (this.getNumerator() * that.getDenominator());
+			int newDenominator = (this.getDenominator() * that.getNumerator());
+			
+			IRational divRat = construct(newNumerator, newDenominator);
+			
+			return divRat;
+		}
 	}
 }

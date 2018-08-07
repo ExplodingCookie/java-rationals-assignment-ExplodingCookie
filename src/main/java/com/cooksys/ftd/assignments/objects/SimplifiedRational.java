@@ -1,8 +1,12 @@
 package com.cooksys.ftd.assignments.objects;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SimplifiedRational implements IRational {
+	
+	int numerator = 0;
+	int denominator = 0;
     /**
      * Determines the greatest common denominator for the given values
      *
@@ -12,7 +16,48 @@ public class SimplifiedRational implements IRational {
      * @throws IllegalArgumentException if a <= 0 or b < 0
      */
     public static int gcd(int a, int b) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	
+        if(a <= 0 || b < 0) {
+        	throw new IllegalArgumentException();
+        } else {
+        	/*
+        	List<Integer> factorsOfA = new ArrayList<Integer>();
+        	List<Integer> factorsOfB = new ArrayList<Integer>();
+        	
+        	for(int i = 1; i <= a; i++) {
+        		if(a % i == 0) {
+        			factorsOfA.add(i);
+        		}
+        	}
+        	
+        	for(int i = 0; i <= b; i++) {
+        		if(i == 0) {
+        			factorsOfB.add(1);
+        		} else {
+	        		if(b % i == 0) {
+	        			factorsOfB.add(i);
+	        		}
+        		}
+        	}
+        	*/
+        	
+        	int gcd = 1;
+        	
+        	int prime = a;
+        	int secon = b;
+        	int trade = 0;
+        	
+        	
+        	while (prime != 0) {
+        		trade = prime;
+        		prime = secon % prime;
+        		secon = trade;
+        	}
+        	
+        	gcd = secon;
+        	
+        	return gcd;
+        }
     }
 
     /**
@@ -29,7 +74,29 @@ public class SimplifiedRational implements IRational {
      * @throws IllegalArgumentException if the given denominator is 0
      */
     public static int[] simplify(int numerator, int denominator) throws IllegalArgumentException {
-        throw new NotImplementedException();
+        if(denominator == 0) {
+        	throw new IllegalArgumentException();
+        } else {
+        	int num = numerator;
+        	int den = denominator;
+        	
+        	if(num < 0) {
+        		num *= -1;
+        	}
+        	
+        	if(den < 0) {
+        		den *= -1;
+        	}
+        	
+        	int gcf = gcd(den, num);
+
+        	int[] ret = new int[2];
+        	
+        	ret[0] = (numerator / gcf);
+        	ret[1] = (denominator / gcf);
+        	
+        	return ret;
+        }
     }
 
     /**
@@ -45,7 +112,17 @@ public class SimplifiedRational implements IRational {
      * @throws IllegalArgumentException if the given denominator is 0
      */
     public SimplifiedRational(int numerator, int denominator) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	if(denominator == 0) {
+        	throw new IllegalArgumentException();
+        } else {
+        	int num = numerator;
+        	int den = denominator;
+        	
+        	int[] newStuff = simplify(num, den);
+        	
+        	this.numerator = newStuff[0];
+        	this.denominator = newStuff[1];
+        }
     }
 
     /**
@@ -53,7 +130,7 @@ public class SimplifiedRational implements IRational {
      */
     @Override
     public int getNumerator() {
-        throw new NotImplementedException();
+        return numerator;
     }
 
     /**
@@ -61,7 +138,7 @@ public class SimplifiedRational implements IRational {
      */
     @Override
     public int getDenominator() {
-        throw new NotImplementedException();
+        return denominator;
     }
 
     /**
@@ -77,7 +154,13 @@ public class SimplifiedRational implements IRational {
      */
     @Override
     public SimplifiedRational construct(int numerator, int denominator) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	if(denominator == 0) {
+    		throw new IllegalArgumentException();
+    	} else {
+    		SimplifiedRational simRat = new SimplifiedRational(numerator, denominator);
+    		
+    		return simRat;
+    	}
     }
 
     /**
@@ -88,7 +171,20 @@ public class SimplifiedRational implements IRational {
      */
     @Override
     public boolean equals(Object obj) {
-        throw new NotImplementedException();
+    	if(obj == null) 
+        	return false;
+        
+        if(obj.getClass() == this.getClass()) {
+        	SimplifiedRational rat = (SimplifiedRational) obj;
+        	
+        	if(rat.numerator == this.numerator && rat.denominator == this.denominator) {
+        		return true;
+        	} else {
+        		return false;
+        	}
+    	} else {
+    		return false;
+    	}
     }
 
     /**
@@ -100,6 +196,14 @@ public class SimplifiedRational implements IRational {
      */
     @Override
     public String toString() {
-        throw new NotImplementedException();
+    	int num = numerator;
+    	int dem = denominator;
+    	
+    	if(dem < 0) {
+    		num *= -1;
+    		dem *= -1;
+    	}
+    	
+    	return Integer.toString(num) + "/" + Integer.toString(dem);
     }
 }
